@@ -1,0 +1,28 @@
+*.iml
+.gradle
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Signing / keys
+*.jks
+*.keystore
+key.properties
+keystore.properties
+signing.properties
+
+# Secrets / API keys
+google-services.json
+secrets.properties
+apikey.properties
+*.env
+.env*
