@@ -25,9 +25,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.example.vocanote.data.ReminderTime
 import com.example.vocanote.ui.NotificationSettingsViewModel
+import com.example.vocanote.ui.components.SingleRingTimePicker
+import com.example.vocanote.ui.components.rememberSingleRingTimePickerState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -145,7 +145,7 @@ fun NotificationSettingsScreen(
     }
 
     if (showTimePicker) {
-        val timePickerState = rememberTimePickerState(is24Hour = true)
+        val timePickerState = rememberSingleRingTimePickerState()
         AlertDialog(
             onDismissRequest = { showTimePicker = false },
             confirmButton = {
@@ -161,7 +161,7 @@ fun NotificationSettingsScreen(
                     Text("취소")
                 }
             },
-            text = { TimePicker(state = timePickerState) }
+            text = { SingleRingTimePicker(state = timePickerState) }
         )
     }
 }

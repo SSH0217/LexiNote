@@ -1,5 +1,7 @@
 package com.example.vocanote.ui.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,7 +20,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+
+private const val PRIVACY_POLICY_URL = "https://ssh0217.github.io/Portfolio/#/legal/lexi-note/privacy"
+private const val TERMS_OF_SERVICE_URL = "https://ssh0217.github.io/Portfolio/#/legal/lexi-note/terms"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,6 +33,8 @@ fun SettingsScreen(
     onOpenTheme: () -> Unit,
     onOpenNotifications: () -> Unit
 ) {
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,6 +50,12 @@ fun SettingsScreen(
         Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
             SettingsMenuRow("테마 설정", onOpenTheme)
             SettingsMenuRow("알림 설정", onOpenNotifications)
+            SettingsMenuRow("개인정보 처리방침") {
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_POLICY_URL)))
+            }
+            SettingsMenuRow("이용약관") {
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(TERMS_OF_SERVICE_URL)))
+            }
         }
     }
 }

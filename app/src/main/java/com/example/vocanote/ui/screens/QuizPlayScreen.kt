@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.vocanote.ui.QuizViewModel
+import com.example.vocanote.ui.text.highlightWordsInSentence
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +52,11 @@ fun QuizPlayScreen(
         Column(modifier = Modifier.fillMaxSize().padding(innerPadding).padding(16.dp)) {
             Text(question.entry.word, style = MaterialTheme.typography.headlineSmall)
             Text(
-                question.entry.sentence,
+                highlightWordsInSentence(
+                    question.entry.sentence,
+                    listOf(question.entry.word),
+                    MaterialTheme.colorScheme.primary
+                ),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
             )

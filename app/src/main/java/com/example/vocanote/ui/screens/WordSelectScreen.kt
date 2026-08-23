@@ -191,7 +191,7 @@ fun WordSelectScreen(
                         viewModel.saveEntry()
                         onSaved()
                     },
-                    enabled = viewModel.selectedWords.isNotEmpty()
+                    enabled = viewModel.canSave
                 ) {
                     Text(
                         if (viewModel.editingGroupId != null) "수정 저장 (${viewModel.selectedWords.size})"

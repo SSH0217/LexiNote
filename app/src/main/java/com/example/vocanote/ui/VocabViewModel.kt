@@ -163,6 +163,12 @@ class VocabViewModel(private val dao: VocabDao) : ViewModel() {
         wordMeaningTexts[word] = text
     }
 
+    val canSave: Boolean
+        get() = selectedWords.isNotEmpty() &&
+            currentSentence.isNotBlank() &&
+            sentenceTranslation !is LookupState.Loading &&
+            selectedWords.none { wordMeanings[it] is LookupState.Loading }
+
     fun translateSentence() {
         if (sentenceTranslation !is LookupState.Idle) return
         sentenceTranslation = LookupState.Loading

@@ -42,14 +42,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.vocanote.data.VocabEntry
 import com.example.vocanote.ui.ListDisplayMode
 import com.example.vocanote.ui.VocabViewModel
+import com.example.vocanote.ui.text.highlightWordsInSentence
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -178,19 +176,7 @@ private fun SentenceGroupCard(entries: List<VocabEntry>, onEdit: () -> Unit, onD
             val halfWidth = maxWidth / 2
             val highlightColor = MaterialTheme.colorScheme.primary
             val sentence = entries.first().sentence
-            val annotatedSentence = buildAnnotatedString {
-                append(sentence)
-                entries.forEach { entry ->
-                    if (entry.word.isBlank()) return@forEach
-                    Regex(Regex.escape(entry.word), RegexOption.IGNORE_CASE).findAll(sentence).forEach { match ->
-                        addStyle(
-                            SpanStyle(color = highlightColor, fontWeight = FontWeight.Bold),
-                            match.range.first,
-                            match.range.last + 1
-                        )
-                    }
-                }
-            }
+            val annotatedSentence = highlightWordsInSentence(sentence, entries.map { it.word }, highlightColor)
             Column(modifier = Modifier.padding(end = 100.dp)) {
                 Text(
                     annotatedSentence,
